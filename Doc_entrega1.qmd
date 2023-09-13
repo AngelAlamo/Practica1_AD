@@ -1,0 +1,10 @@
+---
+title: "Entrega 1"
+author: Ángel Álamo, 
+format: html
+editor: visual
+---
+
+## Análisis exploratorio de datos
+
+holiwiws :)
