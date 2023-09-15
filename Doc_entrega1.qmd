@@ -1,11 +1,52 @@
 ---
 title: "Entrega 1"
-author: Ángel Álamo, 
+author: Ángel Álamo, Juanjo Doblas, Óscar Vanrell 
 format: html
 editor: visual
 ---
 
-## Análisis exploratorio de datos
+# Análisis exploratorio de datos de pingüinos
 
-holiwiws :)
-8 
+En esta práctica vamos a realizar un análisis exploratorio de los datos de pingüinos proporcionados por la Dra Kristen Gorman en la Estación Palmer, Antártida.
+
+Lo primero de todo es cargar la librería "palmerpenguins", así como el conjunto de datos "penguins".
+
+```{r cargar librería, echo=FALSE}
+library("palmerpenguins")
+print(penguins)
+```
+
+Podemos ver en esta tabla de datos que hay 344 individuos con 8 variables. Estas variables son:
+
+-   Especie: Variable cualitativa que hace referencia a la especie del individuo. Toma los valores "Adelie", "Chinstrap" y "Gentoo".
+
+-   Isla: Variable cualitativa que hace referencia a la isla de donde procede el individuo. Toma los valores "Biscoe", "Dream" y "Torgersen".
+
+-   Largo del pico (mm): Variable cuantitativa continua que mide el largo del pico en mm del individuo.
+
+-   Profundidad del pico (mm): Variable cuantitativa continua que mide la profundidad del pico en mm del individuo.
+
+-   Longitud de la aleta (mm): Variable cuantitativa continua que mide la longitud de la aleta en mm del individuo.
+
+-   Masa corporal (g): Variable cuantitativa continua que mide la masa corporal en gramos del individuo.
+
+-   Sexo: Variable cualitativa que hace referencia al sexo del individuo.
+
+-   Año: Variable cualitativa ordinal que hace referencia al año en que se estudió al individuo.
+
+Podemos obtener un resumen de esta tabla de datos con R:
+
+```{r resumen pingüinos, echo=FALSE}
+print(summary(penguins))
+```
+
+Vemos que hay algunos individuos que toman los valores "NA". Vamos a eliminarlos de la tabla de datos ya que no podemos obtener la información completa de estos individuos.
+
+```{r quitar NA, echo=FALSE}
+penguins2 = na.omit(penguins)
+print(summary(penguins2))
+```
+
+Hemos quitado 11 individuos.
+
+Un análisis interesante puede ser estudiar las variables cuantitativas continuas en función de la especie y el sexo.
