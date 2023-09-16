@@ -16,7 +16,7 @@ library("palmerpenguins")
 print(penguins)
 ```
 
-Podemos ver en esta tabla de datos que hay 344 individuos con 8 variables. Estas variables son:
+Podemos ver en esta tabla de datos que hay 344 unidades muestrales con 8 variables de interés. Estas variables son:
 
 -   Especie: Variable cualitativa que hace referencia a la especie del individuo. Toma los valores "Adelie", "Chinstrap" y "Gentoo".
 
@@ -40,13 +40,101 @@ Podemos obtener un resumen de esta tabla de datos con R:
 print(summary(penguins))
 ```
 
-Vemos que hay algunos individuos que toman los valores "NA". Vamos a eliminarlos de la tabla de datos ya que no podemos obtener la información completa de estos individuos.
+Algunas unidades muestrales presentan los valores "NA" en ciertas variables, por lo tanto, nosotros consideraremos solo aquellos que presentan unos valores conocidos.
 
 ```{r quitar NA, echo=FALSE}
 penguins2 = na.omit(penguins)
 print(summary(penguins2))
 ```
 
-Hemos quitado 11 individuos.
+La muestra total se ha reducido a 333 unidades muestrales.
+
+En primer lugar, podríamos hacer un análisis de la comunidad de pingüinos según la isla en la que viven, con el fin de determinar si las diferencias geográficas afectan en el desarrollo general.
+
+Una característica que podemos ver es el peso medio y su dispersión por isla:
+
+
+```{r}
+boxplot(body_mass_g~island, data = penguins2, xlab = " Isla", ylab = "Peso corporal(g)", plot = TRUE)
+medias = aggregate(body_mass_g~island, data = penguins2, FUN = mean)
+
+points(medias, col = "red", pch = 18)
+
+max(penguins2$body_mass_g)
+```
+
+
+A partir del gráfico, tenemos que los pingüinos que viven en la isla "Biscoe", tienen un peso medio mayor y un rango de valores bastante más amplio que las otras dos islas. Por otro lado, la isla "Dream" tiene un valor atípico.
+
+Ahora, agruparemos las unidades según la isla y si su peso (en gramos) está entre $[2650, 3000), [3000, 5000)$ o $[5000,6350)$ para así hacer un histograma de frecuencias acumuladas por isla.
+
+
+```{r}
+# Función para hacer el histograma de frecuencias absolutas
+hist_abs=function(x,L){
+if (sum(diff(diff(L)))==0){ 
+h=hist(x, breaks=L, right=FALSE, include.lowest=TRUE,
+    xaxt="n", col="lightgray",
+    main="Histograma de frecuencias absolutas",
+    xlab="Intervalos",ylab="Frecuencias absolutas")
+}
+  else {
+ h=hist(x, breaks=L, right=FALSE, include.lowest=TRUE,
+    axes=FALSE, col="lightgray",
+    main="Histograma de frecuencias absolutas",
+    xlab="Intervalos",ylab="")
+ text(h$mids, h$density/2, labels=h$counts, col="blue", cex=0.75)
+}
+axis(1, at=L)}
+
+```
+
+
+
+```{r}
+#Breaks
+L1 = c(2000, 3000, 4000, 5000, 6000, 7000)
+
+#Isla Biscoe
+p_biscoe_mass = penguins2$body_mass_g[penguins2$island == "Biscoe"]
+
+hist_abs(p_biscoe_mass, L1)
+```
+
+
+```{r}
+#Isla Dream
+p_dream_mass = penguins2$body_mass_g[penguins2$island == "Dream"]
+
+hist_abs(p_dream_mass, L1)
+
+```
+
+
+```{r}
+#Isla Torgersen
+p_Torgersen_mass = penguins2$body_mass_g[penguins2$island == "Torgersen"]
+
+hist_abs(p_Torgersen_mass, L1)
+
+```
+
+Esta variación en el peso puede deberse por varios factores, como: la dificultad que tienen los pingüinos para alimentarse debido a los depredadores; la distancia entre sus colonias y el lugar en el que cazan; o por posibles variaciones físicas. Por ello, estudiaremos también el largo  y la profundidad del pico según la isla.
+
+```{r}
+boxplot(bill_length_mm~island, data = penguins2, xlab = "Isla", ylab = "Largo del pico(mm)")
+
+
+```
+
+
+
+```{r}
+boxplot(bill_depth_mm~island, data = penguins2, xlab = "Isla", ylab = "Profundidad del pico(mm)")
+```
+
+
+
+
 
 Un análisis interesante puede ser estudiar las variables cuantitativas continuas en función de la especie y el sexo.
