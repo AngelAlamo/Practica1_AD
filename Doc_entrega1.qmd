@@ -49,10 +49,69 @@ print(summary(penguins2))
 
 La muestra total se ha reducido a 333 unidades muestrales.
 
+Un análisis interesante puede ser estudiar las variables cuantitativas continuas en función de la especie, isla y el sexo.
+
+
+
+
+Empecemos viendo qué especies habitan en cada isla.
+
+```{r,echo=FALSE, fig.width=10, fig.height=5, fig.align='center'}
+par(mfrow = c(1, 3))
+pie(table(penguins$species[penguins$island == "Torgersen"]), main = "Especies de Torgersen",col = c("#7EC3E5", "#E57E7E", "#8F7EE5"))
+pie(table(penguins$species[penguins$island == "Biscoe"]), main = "Especies de Biscoe",col = c("#7EC3E5", "#E57E7E", "#8F7EE5"))
+pie(table(penguins$species[penguins$island == "Dream"]), main = "Especies de Dream",col = c("#7EC3E5", "#E57E7E", "#8F7EE5"))
+
+par(mfrow=c(1,1))
+
+```
+Como podemos observar, los Adelie se encuentran en las 3 islas mientras que tanto los Gentoo como los Chinstrap solo los podemos encontrar en una de ellas. Un analisis interesante que haremos mas adelante puede ser el de comparar las caracteristicas de los Adelie en las diferentes islas para ver si la zona demográfica influye en ellos
+
+
+Que tal ver si rasgos de pinguinos de la misma especie Adelie cambian segun islas. Empecemos con la longitud de sus aletas (Hecho de dos maneras, son solo pruebas, el que nos convenza mas lo usamos luego tambien para comparar la masa corporal que es donde creo que puede haber cambios significativos tambien)
+
+```{r, echo=FALSE, fig.width=10, fig.height=10, fig.align='center'}
+par(mfrow = c(3, 1))
+barplot(table(penguins$flipper_length_mm[penguins$species == "Adelie" & penguins$island == "Torgersen"]), main = "Torgersen",col ="#7EC3E5")
+barplot(table(penguins$flipper_length_mm[penguins$species == "Adelie" & penguins$island == "Biscoe"]), main = "Biscoe",col ="#7EC3E5")
+barplot(table(penguins$flipper_length_mm[penguins$species == "Adelie" & penguins$island == "Dream"]), main = "Dream",col ="#7EC3E5")
+par(mfrow = c(1, 1))
+```
+
+```{r}
+boxplot(penguins$flipper_length_mm[penguins$species == "Adelie"] ~ penguins$island[penguins$species == "Adelie"], ylab = "Longitud aleta", xlab = "Isla",col ="#7EC3E5")
+
+```
+
+
+
+
+
+
+Otro estudio interesante puede ser analizar los rasgos diferentes de pinguinos segun especies. Aqui tenemos las longitudes de las aletas, picos y sus masas corporales:
+
+
+```{r}
+boxplot(penguins$flipper_length_mm ~ penguins$species, ylab = "Longitud aleta", xlab = "Especies",col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
+```
+
+
+
+```{r}
+
+boxplot(penguins$bill_length_mm ~ penguins$species, ylab = "Longitud pico", xlab = "Especies",col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
+
+```
+
+```{r}
+boxplot(penguins$body_mass_g ~ penguins$species, ylab = "Masa corporal", xlab = "Especies",col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
+
+```
+
+
 En primer lugar, podríamos hacer un análisis de la comunidad de pingüinos según la isla en la que viven, con el fin de determinar si las diferencias geográficas afectan en el desarrollo general.
 
 Una característica que podemos ver es el peso medio y su dispersión por isla:
-
 
 ```{r}
 boxplot(body_mass_g~island, data = penguins2, xlab = " Isla", ylab = "Peso corporal(g)", plot = TRUE)
@@ -63,11 +122,9 @@ points(medias, col = "red", pch = 18)
 max(penguins2$body_mass_g)
 ```
 
-
 A partir del gráfico, tenemos que los pingüinos que viven en la isla "Biscoe", tienen un peso medio mayor y un rango de valores bastante más amplio que las otras dos islas. Por otro lado, la isla "Dream" tiene un valor atípico.
 
 Ahora, agruparemos las unidades según la isla y si su peso (en gramos) está entre $[2650, 3000), [3000, 5000)$ o $[5000,6350)$ para así hacer un histograma de frecuencias acumuladas por isla.
-
 
 ```{r}
 # Función para hacer el histograma de frecuencias absolutas
@@ -89,8 +146,6 @@ axis(1, at=L)}
 
 ```
 
-
-
 ```{r}
 #Breaks
 L1 = c(2000, 3000, 4000, 5000, 6000, 7000)
@@ -101,7 +156,6 @@ p_biscoe_mass = penguins2$body_mass_g[penguins2$island == "Biscoe"]
 hist_abs(p_biscoe_mass, L1)
 ```
 
-
 ```{r}
 #Isla Dream
 p_dream_mass = penguins2$body_mass_g[penguins2$island == "Dream"]
@@ -109,7 +163,6 @@ p_dream_mass = penguins2$body_mass_g[penguins2$island == "Dream"]
 hist_abs(p_dream_mass, L1)
 
 ```
-
 
 ```{r}
 #Isla Torgersen
@@ -119,7 +172,7 @@ hist_abs(p_Torgersen_mass, L1)
 
 ```
 
-Esta variación en el peso puede deberse por varios factores, como: la dificultad que tienen los pingüinos para alimentarse debido a los depredadores; la distancia entre sus colonias y el lugar en el que cazan; o por posibles variaciones físicas. Por ello, estudiaremos también el largo  y la profundidad del pico según la isla.
+Esta variación en el peso puede deberse por varios factores, como: la dificultad que tienen los pingüinos para alimentarse debido a los depredadores; la distancia entre sus colonias y el lugar en el que cazan; o por posibles variaciones físicas. Por ello, estudiaremos también el largo y la profundidad del pico según la isla.
 
 ```{r}
 boxplot(bill_length_mm~island, data = penguins2, xlab = "Isla", ylab = "Largo del pico(mm)")
@@ -127,14 +180,8 @@ boxplot(bill_length_mm~island, data = penguins2, xlab = "Isla", ylab = "Largo de
 
 ```
 
-
-
 ```{r}
 boxplot(bill_depth_mm~island, data = penguins2, xlab = "Isla", ylab = "Profundidad del pico(mm)")
 ```
-
-
-
-
 
 Un análisis interesante puede ser estudiar las variables cuantitativas continuas en función de la especie y el sexo.
