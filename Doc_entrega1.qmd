@@ -53,9 +53,6 @@ La muestra total se ha reducido a 333 unidades muestrales.
 
 Un análisis interesante puede ser estudiar las variables cuantitativas continuas en función de la especie, isla y el sexo.
 
-
-
-
 Empecemos viendo qué especies habitan en cada isla.
 
 ```{r,echo=FALSE, fig.width=10, fig.height=5, fig.align='center'}
@@ -67,10 +64,10 @@ pie(table(penguins$species[penguins$island == "Dream"]), main = "Especies de Dre
 par(mfrow=c(1,1))
 
 ```
+
 Como podemos observar, los Adelie se encuentran en las 3 islas mientras que tanto los Gentoo como los Chinstrap solo los podemos encontrar en una de ellas. Un analisis interesante que haremos mas adelante puede ser el de comparar las caracteristicas de los Adelie en las diferentes islas para ver si la zona demográfica influye en ellos
 
-
-Que tal ver si rasgos de pinguinos de la misma especie Adelie cambian segun islas. Empecemos con la longitud de sus aletas (Hecho de dos maneras, son solo pruebas, el que nos convenza mas lo usamos luego tambien para comparar la masa corporal que es donde creo que puede haber cambios significativos tambien)
+Que tal ver si rasgos de pinguinos de la misma especie Adelie cambian segun islas. Empecemos con la longitud de sus aletas (Hecho de dos maneras, son solo pruebas, el que nos convenza mas lo usamos luego tambien para comparar la masa corporal que es donde creo que puede haber cambios significativos tambien)(también pienso que con este tipo de datos lo mas limpio y donde se ven mejor las cosas es con un boxplot)
 
 ```{r, echo=FALSE, fig.width=10, fig.height=10, fig.align='center'}
 par(mfrow = c(3, 1))
@@ -85,30 +82,46 @@ boxplot(penguins$flipper_length_mm[penguins$species == "Adelie"] ~ penguins$isla
 
 ```
 
+Vamos a ver si existe una variación aparentemente significativa en el peso corporal de la especie Adelie dependiendo de las islas, ya que creemos que podria ser un factor que varie debido a distintos factores, como: la dificultad que tienen los pingüinos para alimentarse debido a los depredadores; la distancia entre sus colonias y el lugar en el que cazan; o por posibles variaciones físicas.
 
+```{r, echo=FALSE}
+boxplot(penguins$body_mass_g[penguins$species == "Adelie"] ~ penguins$island[penguins$species == "Adelie"], ylab = "Peso corporal", xlab = "Isla",col ="#7EC3E5")
+medias = aggregate(penguins$body_mass_g[penguins$species == "Adelie"] ~ penguins$island[penguins$species == "Adelie"], FUN = mean)
 
-
-
-
-Otro estudio interesante puede ser analizar los rasgos diferentes de pinguinos segun especies. Aqui tenemos las longitudes de las aletas, picos y sus masas corporales:
-
-
-```{r}
-boxplot(penguins$flipper_length_mm ~ penguins$species, ylab = "Longitud aleta", xlab = "Especies",col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
-```
-
-
-
-```{r}
-
-boxplot(penguins$bill_length_mm ~ penguins$species, ylab = "Longitud pico", xlab = "Especies",col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
+points(medias, col = "red", pch = 18)
 
 ```
 
-```{r}
-boxplot(penguins$body_mass_g ~ penguins$species, ylab = "Masa corporal", xlab = "Especies",col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
+Aparentemente no parece haber diferencias significativas, asi que vamos a dejar a los Adelie para empezar a estudiar las características fisicas de diferentes especies entre ellas y entre sexos.
 
+Analicemos pues los rasgos diferentes de pingüinos segun especies. Aqui tenemos las longitudes de las aletas, picos y sus profundidades, y sus masas corporales:
+
+```{r, echo=FALSE, fig.width=5, fig.height=10, fig.align='center'}
+par(mfrow = c(4, 1))
+boxplot(penguins$flipper_length_mm ~ penguins$species, ylab = "Longitud aleta", xlab = "Especies", main = "Longitud de las aletas por especies",  col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
+boxplot(penguins$bill_length_mm ~ penguins$species, ylab = "Longitud pico", xlab = "Especies",main = "Longitud del pico por especies",col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
+boxplot(penguins$bill_depth_mm ~ penguins$species, ylab = "Longitud pico", xlab = "Especies",main = "Profundidad del pico por especies",col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
+boxplot(penguins$body_mass_g ~ penguins$species, ylab = "Masa corporal", xlab = "Especies",main = "Masa corporal por especies",col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
+par(mfrow = c(1, 1))
 ```
+
+Como podemos observar en los gráficos, los Gentoo son claramente los que tienen las aletas mas largas y los que tienen mayor masa corporal, en cambio son los que tienen la menor profundidad de pico. Por otra parte, podemos observar que las especies Adelie y Chinstrap tienen rasgos muy semejantes a excepción de la longitud de sus picos, en la cual los Adelie son los que tienen el pico mas corto en comparación con las otras dos especies.
+
+
+
+
+
+(Ahora haria un analisis diferenciando el sexo para ver si varia, pero no se si diferenciar tambien por especies, rollo ver si en los Adelie cambian su peso segun macho o hembra o si hacerlo en general para todos los pingüinos).
+
+(También me gustan los histogramas de freq absolutas de barras que ha hecho Angel abajo, si quereis para que no sean todo boxplot los podemos meter en algun estudio)
+
+
+
+
+
+
+
+
 
 
 En primer lugar, podríamos hacer un análisis de la comunidad de pingüinos según la isla en la que viven, con el fin de determinar si las diferencias geográficas afectan en el desarrollo general.
