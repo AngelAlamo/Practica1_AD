@@ -37,6 +37,8 @@ Podemos ver en esta tabla de datos que hay 344 unidades muestrales con 8 variabl
 Podemos obtener un resumen de esta tabla de datos con R:
 
 ```{r resumen pingüinos, echo=FALSE}
+# Cualitativas: cuantos hay de cada
+# Cuantitativas: summary
 print(summary(penguins))
 ```
 
