@@ -41,14 +41,11 @@ table(penguins2$island)
 
 ```
 
-
 -   Largo del pico (mm): Variable cuantitativa continua que mide el largo del pico en mm del individuo. Tenemos estos datos generales sobre la variable:
 
 ```{r, echo = FALSE}
 summary(penguins2)[,3]
 ```
-
-
 
 -   Profundidad del pico (mm): Variable cuantitativa continua que mide la profundidad del pico en mm del individuo. Unos datos generales que podemos obtener son:
 
@@ -56,13 +53,11 @@ summary(penguins2)[,3]
 summary(penguins2)[,4]
 ```
 
-
 -   Longitud de la aleta (mm): Variable cuantitativa continua que mide la longitud de la aleta en mm del individuo.
 
 ```{r, echo = FALSE}
 summary(penguins2)[,5]
 ```
-
 
 -   Masa corporal (g): Variable cuantitativa continua que mide la masa corporal en gramos del individuo.
 
@@ -70,13 +65,11 @@ summary(penguins2)[,5]
 summary(penguins2)[,6]
 ```
 
-
 -   Sexo: Variable cualitativa que hace referencia al sexo del individuo. Mostramos cúantas unidades hay de cada sexo.
 
 ```{r, echo = FALSE}
 table(penguins2$sex)
 ```
-
 
 -   Año: Variable cualitativa ordinal que hace referencia al año en que se estudió al individuo. Aún siendo una variable númerica, la trataremos como un factor.
 
@@ -84,17 +77,15 @@ table(penguins2$sex)
 table(penguins2$year)
 ```
 
-
 De manera más compacta, tenemos el siguiente resumen de la tabla de datos con R:
 
 ```{r resumen pingüinos, echo=FALSE}
 print(summary(penguins2))
 ```
 
-
 Un análisis interesante puede ser estudiar las variables cuantitativas continuas en función de la especie, isla y el sexo.
 
-Empecemos viendo qué especies habitan en cada isla a partir de un diagrama circular, donde el área de cada sector es proporcional a la frecuencia del nivel correspondiente. 
+Empecemos viendo qué especies habitan en cada isla a partir de un diagrama circular, donde el área de cada sector es proporcional a la frecuencia del nivel correspondiente.
 
 ```{r,echo=FALSE, fig.width=10, fig.height=5, fig.align='center'}
 par(mfrow = c(1, 3))
