@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -35,8 +69,6 @@ ul.task-list li input[type="checkbox"] {
 <link href="Doc_entrega1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="Doc_entrega1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -187,32 +219,13 @@ female   male
 </div>
 </div>
 <ul>
-<li>Año: Variable cualitativa ordinal que hace referencia al año en que se estudió al individuo. Aún siendo una variable númerica, la trataremos como un factor.</li>
+<li>Año: Variable cualitativa ordinal que hace referencia al año en que se estudió al individuo. Aún siendo una variable númerica, la trataremos como un factor. Mostramos cuántas unidades han sido estudiadas en cada año.</li>
 </ul>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>
 2007 2008 2009 
  103  113  117 </code></pre>
-</div>
-</div>
-<p>De manera más compacta, tenemos el siguiente resumen de la tabla de datos con R:</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>      species          island    bill_length_mm  bill_depth_mm  
- Adelie   :146   Biscoe   :163   Min.   :32.10   Min.   :13.10  
- Chinstrap: 68   Dream    :123   1st Qu.:39.50   1st Qu.:15.60  
- Gentoo   :119   Torgersen: 47   Median :44.50   Median :17.30  
-                                 Mean   :43.99   Mean   :17.16  
-                                 3rd Qu.:48.60   3rd Qu.:18.70  
-                                 Max.   :59.60   Max.   :21.50  
- flipper_length_mm  body_mass_g       sex           year     
- Min.   :172       Min.   :2700   female:165   Min.   :2007  
- 1st Qu.:190       1st Qu.:3550   male  :168   1st Qu.:2007  
- Median :197       Median :4050                Median :2008  
- Mean   :201       Mean   :4207                Mean   :2008  
- 3rd Qu.:213       3rd Qu.:4775                3rd Qu.:2009  
- Max.   :231       Max.   :6300                Max.   :2009  </code></pre>
 </div>
 </div>
 <p>Un análisis interesante puede ser estudiar las variables cuantitativas continuas en función de la especie, isla y el sexo.</p>
@@ -226,8 +239,8 @@ female   male
 </div>
 </div>
 </div>
-<p>Como podemos observar, los Adelie se encuentran en las 3 islas mientras que la especie Gentoo y la especie Chinstrap solo las podemos encontrar en una de ellas, siendo Biscoe la isla donde habita la especie Gentoo y Dream donde habita la especie Chinstrap. Un analisis interesante que haremos a continuación será comparar las caracteristicas de los Adelie en las diferentes islas para ver si la zona demográfica influye en la evolución de la especie a nivel fisiológico.</p>
-<p>Empecemos con la longitud de sus aletas (Hecho de dos maneras, son solo pruebas, el que nos convenza mas lo usamos luego tambien para comparar la masa corporal que es donde creo que puede haber cambios significativos tambien)(también pienso que con este tipo de datos lo mas limpio y donde se ven mejor las cosas es con un boxplot)</p>
+<p>Como podemos observar, los Adelie se encuentran en las 3 islas mientras que los Gentoo y los Chinstrap solo los podemos encontrar en una de ellas, siendo Biscoe la isla donde habita la especie Gentoo y Dream la isla donde habita la especie Chinstrap.</p>
+<p>A continuación compararemos las caracteristicas de los Adelie en las diferentes islas para ver si la zona demográfica influye en la evolución de la especie a nivel fisiológico. Empezaremos con la longitud de sus aletas.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -236,81 +249,91 @@ female   male
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Help on topic 'plot' was found in the following packages:
-
-  Package               Library
-  graphics              /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library
-  base                  /Library/Frameworks/R.framework/Resources/library
-
-
-Using the first match ...</code></pre>
-</div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Vamos a ver si existe una variación aparentemente significativa en el peso corporal de la especie Adelie dependiendo de las islas, ya que creemos que podria ser un factor que varie debido a distintos factores, como: la dificultad que tienen los pingüinos para alimentarse debido a los depredadores; la distancia entre sus colonias y el lugar en el que cazan; o por posibles variaciones físicas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comentario sobre los gráficos</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Vamos a ver si existe una variación aparentemente significativa en el peso corporal de la especie Adelie dependiendo de las islas. Esto podría ocurrir por distintos factores como: la dificultad que tienen los pingüinos para alimentarse debido a los depredadores; la distancia entre sus colonias y el lugar en el que cazan; o por posibles variaciones físicas.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Aparentemente no parece haber diferencias significativas, asi que vamos a dejar a los Adelie para empezar a estudiar las características fisicas de diferentes especies entre ellas y entre sexos.</p>
-<p>Analicemos pues los rasgos diferentes de pingüinos segun especies. Aqui tenemos las longitudes de las aletas, picos y sus profundidades, y sus masas corporales:</p>
+<p>Analicemos los rasgos diferentes de pingüinos segun especies. Aqui tenemos las longitudes de las aletas, las longitudes y profundidades de los picos y sus masas corporales:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="480"></p>
+<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="480"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Como podemos observar en los gráficos, los Gentoo son claramente los que tienen las aletas mas largas y los que tienen mayor masa corporal, en cambio son los que tienen la menor profundidad de pico. Por otra parte, podemos observar que las especies Adelie y Chinstrap tienen rasgos muy semejantes a excepción de la longitud de sus picos, en la cual los Adelie son los que tienen el pico mas corto en comparación con las otras dos especies.</p>
-<p>(Ahora haria un analisis diferenciando el sexo para ver si varia, pero no se si diferenciar tambien por especies, rollo ver si en los Adelie cambian su peso segun macho o hembra o si hacerlo en general para todos los pingüinos).</p>
-<p>(También me gustan los histogramas de freq absolutas de barras que ha hecho Angel abajo, si quereis para que no sean todo boxplot los podemos meter en algun estudio)</p>
-<p>En primer lugar, podríamos hacer un análisis de la comunidad de pingüinos según la isla en la que viven, con el fin de determinar si las diferencias geográficas afectan en el desarrollo general.</p>
-<p>Una característica que podemos ver es el peso medio y su dispersión por isla:</p>
-<div class="cell">
+<p>Como podemos observar en los gráficos, los Gentoo son claramente los que tienen las aletas mas largas y los que tienen mayor masa corporal, en cambio son los que tienen la menor profundidad de pico. Por otra parte, las especies Adelie y Chinstrap tienen rasgos muy semejantes a excepción de la longitud de sus picos, en la cual los Adelie parecen tener el pico mas corto en comparación con las otras dos especies.</p>
+<p>Analicemos los rasgos diferentes de pingüinos segun especies y sexo.</p>
+<p>Primero de todo veamos cuantos machos y hembras hay en cada especie usando diagramas circulares, donde el área de cada sector es proporcional a la frecuencia del nivel correspondiente.</p>
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 6300</code></pre>
 </div>
 </div>
-<p>A partir del gráfico, tenemos que los pingüinos que viven en la isla “Biscoe”, tienen un peso medio mayor y un rango de valores bastante más amplio que las otras dos islas. Por otro lado, la isla “Dream” tiene un valor atípico.</p>
-<p>Ahora, agruparemos las unidades según la isla y si su peso (en gramos) está entre <span class="math inline">\([2650, 3000), [3000, 5000)\)</span> o <span class="math inline">\([5000,6350)\)</span> para así hacer un histograma de frecuencias acumuladas por isla.</p>
-<div class="cell">
+<p>Vemos que hay, en cada especie, aproximadamente una proporción de 50% en los sexos.</p>
+<p>Veamos las diferencias que hay por especie y sexo en cada una de las variables de las que disponemos:</p>
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
 </div>
 </div>
-<div class="cell">
+</div>
+<p>En este gráfico podemos observar que la especie Gentoo es la que tiene la longitud de las aletas más larga y que los machos también tienen las aletas más largas que las hembras en las tres especies. También podemos observar una similitud en esta variable entre los Adelies machos y los Chinstrap hembras.</p>
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
 </div>
 </div>
-<div class="cell">
+</div>
+<p>En este gráfico vemos claramente que la especie Adelie es la que tiene la menor longitud del pico. Podemos ver similitudes respecto a esta variable entre la especie Chinstrap y Gentoo, aunque los Chinstrap machos toman valores más compactos que los Gentoo machos. Como en el gráfico anterior, también vemos que los machos, en las tres especies, toman valores más altos que las hembras.</p>
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
 </div>
 </div>
-<p>Esta variación en el peso puede deberse por varios factores, como: la dificultad que tienen los pingüinos para alimentarse debido a los depredadores; la distancia entre sus colonias y el lugar en el que cazan; o por posibles variaciones físicas. Por ello, estudiaremos también el largo y la profundidad del pico según la isla.</p>
-<div class="cell">
+</div>
+<p>En este caso, es la especie Gentoo la que toma los valores más pequeños y las especies Adelie y Chinstrap las que toman valores similares, aunque hay una diferencia notable entre la profundidad mínima de la especie Adelie y la Chinstrap. Volvemos a ver también que los machos toman valores más altos en las tres especies.</p>
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
 </div>
 </div>
+</div>
+<p>Respecto a la masa corporal, se vuelve a dar el caso que la especie Gentoo toma los valores más altos. También vemos ciertas similituddes entre las especies Adelie y Chinstrap. Vemos otra vez que los machos toman valores más altos que las hembras en las tres especies.</p>
 <div class="cell">
-<div class="cell-output-display">
-<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Algun hist de frecuencias absolutas?</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Hay que comentar los valores atípicos?</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Hacemos un análisis general de las 4 variables?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>Un análisis interesante puede ser estudiar las variables cuantitativas continuas en función de la especie y el sexo.</p>
 </section>
 
 </main>

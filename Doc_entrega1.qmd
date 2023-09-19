@@ -77,7 +77,6 @@ table(penguins2$sex)
 table(penguins2$year)
 ```
 
-
 Un análisis interesante puede ser estudiar las variables cuantitativas continuas en función de la especie, isla y el sexo.
 
 Empecemos viendo qué especies habitan en cada isla a partir de un diagrama circular, donde el área de cada sector es proporcional a la frecuencia del nivel correspondiente.
@@ -95,10 +94,9 @@ par(mfrow=c(1,1))
 
 ```
 
-Como podemos observar, los Adelie se encuentran en las 3 islas mientras que los Gentoo y los Chinstrap solo los podemos encontrar en una de ellas, siendo Biscoe la isla donde habita la especie Gentoo y Dream la isla donde habita la especie Chinstrap. 
+Como podemos observar, los Adelie se encuentran en las 3 islas mientras que los Gentoo y los Chinstrap solo los podemos encontrar en una de ellas, siendo Biscoe la isla donde habita la especie Gentoo y Dream la isla donde habita la especie Chinstrap.
 
 A continuación compararemos las caracteristicas de los Adelie en las diferentes islas para ver si la zona demográfica influye en la evolución de la especie a nivel fisiológico. Empezaremos con la longitud de sus aletas.
-
 
 ```{r, echo=FALSE, fig.width=10, fig.height=10, fig.align='center'}
 
@@ -148,12 +146,10 @@ boxplot(penguins2$flipper_length_mm[penguins2$species == "Adelie"] ~ penguins2$i
 
 ```
 
-
 ```{r}
 # Comentario sobre los gráficos
 
 ```
-
 
 Vamos a ver si existe una variación aparentemente significativa en el peso corporal de la especie Adelie dependiendo de las islas. Esto podría ocurrir por distintos factores como: la dificultad que tienen los pingüinos para alimentarse debido a los depredadores; la distancia entre sus colonias y el lugar en el que cazan; o por posibles variaciones físicas.
 
@@ -187,17 +183,68 @@ par(mfrow = c(1, 1))
 
 Como podemos observar en los gráficos, los Gentoo son claramente los que tienen las aletas mas largas y los que tienen mayor masa corporal, en cambio son los que tienen la menor profundidad de pico. Por otra parte, las especies Adelie y Chinstrap tienen rasgos muy semejantes a excepción de la longitud de sus picos, en la cual los Adelie parecen tener el pico mas corto en comparación con las otras dos especies.
 
+Analicemos los rasgos diferentes de pingüinos segun especies y sexo.
 
-```{r}
-# Estudiar las variables cuantitativas con los grupos especie ~ sexo
+Primero de todo veamos cuantos machos y hembras hay en cada especie usando diagramas circulares, donde el área de cada sector es proporcional a la frecuencia del nivel correspondiente.
 
+```{r,echo=FALSE, fig.width=10, fig.height=5, fig.align='center'}
+par(mfrow = c(1, 3))
+
+pie(table(penguins$sex[penguins$species == "Adelie"]), main = "Sexos de Adelie",col = "#7EC3E5")
+
+pie(table(penguins$sex[penguins$species == "Chinstrap"]), main = "Sexos de Chinstrap",col = "#E57E7E")
+
+pie(table(penguins$sex[penguins$species == "Gentoo"]), main = "Sexos de Gentoo",col = "#8F7EE5")
+
+par(mfrow=c(1,1))
 ```
 
-```{r}
+Vemos que hay, en cada especie, aproximadamente una proporción de 50% en los sexos.
+
+Veamos las diferencias que hay por especie y sexo en cada una de las variables de las que disponemos:
+
+```{r, echo=FALSE, fig.width=8, fig.height=5, fig.align='center'}
+par(mfrow = c(1, 1))
+
+flipper_length_species_sex = split(penguins2$flipper_length_mm, list(penguins2$sex, penguins2$species))
+boxplot(flipper_length_species_sex, names = c("A-F", "A-M", "C-F", "C-M", "G-F", "G-M"), ylab = "Longitud aleta (mm)", xlab = "Especies y sexo", main = "Longitud de las aletas por especies y sexo",  col =c("#7EC3E5", "#7EC3E5", "#E57E7E", "#E57E7E", "#8F7EE5", "#8F7EE5"))
+```
+
+En este gráfico podemos observar que la especie Gentoo es la que tiene la longitud de las aletas más larga y que los machos también tienen las aletas más largas que las hembras en las tres especies. También podemos observar una similitud en esta variable entre los Adelies machos y los Chinstrap hembras.
+
+```{r, echo=FALSE, fig.width=8, fig.height=5, fig.align='center'}
+par(mfrow = c(1, 1))
+
+bill_length_species_sex = split(penguins2$bill_length_mm, list(penguins2$sex, penguins2$species))
+boxplot(bill_length_species_sex, names = c("A-F", "A-M", "C-F", "C-M", "G-F", "G-M"), ylab = "Longitud pico (mm)", xlab = "Especies y sexo", main = "Longitud del pico por especies y sexo",  col =c("#7EC3E5", "#7EC3E5", "#E57E7E", "#E57E7E", "#8F7EE5", "#8F7EE5"))
+```
+
+En este gráfico vemos claramente que la especie Adelie es la que tiene la menor longitud del pico. Podemos ver similitudes respecto a esta variable entre la especie Chinstrap y Gentoo, aunque los Chinstrap machos toman valores más compactos que los Gentoo machos. Como en el gráfico anterior, también vemos que los machos, en las tres especies, toman valores más altos que las hembras.
+
+```{r, echo=FALSE, fig.width=8, fig.height=5, fig.align='center'}
+par(mfrow = c(1, 1))
+
+bill_depth_species_sex = split(penguins2$bill_depth_mm, list(penguins2$sex, penguins2$species))
+boxplot(bill_depth_species_sex, names = c("A-F", "A-M", "C-F", "C-M", "G-F", "G-M"), ylab = "Profundidad pico (mm)", xlab = "Especies y sexo", main = "Profundidad del pico por especies y sexo",  col =c("#7EC3E5", "#7EC3E5", "#E57E7E", "#E57E7E", "#8F7EE5", "#8F7EE5"))
+```
+
+En este caso, es la especie Gentoo la que toma los valores más pequeños y las especies Adelie y Chinstrap las que toman valores similares, aunque hay una diferencia notable entre la profundidad mínima de la especie Adelie y la Chinstrap.
+Volvemos a ver también que los machos toman valores más altos en las tres especies.
+
+```{r, echo=FALSE, fig.width=8, fig.height=5, fig.align='center'}
+par(mfrow = c(1, 1))
+
+body_mass_species_sex = split(penguins2$body_mass_g, list(penguins2$sex, penguins2$species))
+boxplot(body_mass_species_sex, names = c("A-F", "A-M", "C-F", "C-M", "G-F", "G-M"), ylab = "Masa corporal (g)", xlab = "Especies y sexo", main = "Masa corporal por especies y sexo",  col =c("#7EC3E5", "#7EC3E5", "#E57E7E", "#E57E7E", "#8F7EE5", "#8F7EE5"))
+```
+Respecto a la masa corporal, se vuelve a dar el caso que la especie Gentoo toma los valores más altos. También vemos ciertas similituddes entre las especies Adelie y Chinstrap. Vemos otra vez que los machos toman valores más altos que las hembras en las tres especies.
+
+```{r comentarios}
 # Algun hist de frecuencias absolutas?
+# Hay que comentar los valores atípicos?
+# Hacemos un análisis general de las 4 variables?
 
 ```
-
 
 ```{r, echo = FALSE}
 # Función para hacer el histograma de frecuencias absolutas
@@ -218,4 +265,3 @@ h=hist(x, breaks=L, right=FALSE, include.lowest=TRUE,
 axis(1, at=L)}
 
 ```
-
