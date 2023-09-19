@@ -71,7 +71,7 @@ summary(penguins2)[,6]
 table(penguins2$sex)
 ```
 
--   Año: Variable cualitativa ordinal que hace referencia al año en que se estudió al individuo. Aún siendo una variable númerica, la trataremos como un factor.
+-   Año: Variable cualitativa ordinal que hace referencia al año en que se estudió al individuo. Aún siendo una variable númerica, la trataremos como un factor. Mostramos cuántas unidades han sido estudiadas en cada año.
 
 ```{r, echo = FALSE}
 table(penguins2$year)
@@ -80,6 +80,7 @@ table(penguins2$year)
 De manera más compacta, tenemos el siguiente resumen de la tabla de datos con R:
 
 ```{r resumen pingüinos, echo=FALSE}
+# Esto no se si lo pondría porque creo que es redundante ya que mostramos esta info anteriormente
 print(summary(penguins2))
 ```
 
@@ -143,8 +144,6 @@ frec_dre = table(cut(v_adelie_dre, breaks = breaks_aletas, include.lowest = TRUE
 
 barplot(frec_dre, main = "Dream",col ="#7EC3E5", ylim = c(0, 30))
 
-
-?plot
 par(mfrow = c(1, 1))
 ```
 
@@ -153,7 +152,7 @@ boxplot(penguins2$flipper_length_mm[penguins2$species == "Adelie"] ~ penguins2$i
 
 ```
 
-Vamos a ver si existe una variación aparentemente significativa en el peso corporal de la especie Adelie dependiendo de las islas, ya que creemos que podria ser un factor que varie debido a distintos factores, como: la dificultad que tienen los pingüinos para alimentarse debido a los depredadores; la distancia entre sus colonias y el lugar en el que cazan; o por posibles variaciones físicas.
+Vamos a ver si existe una variación aparentemente significativa en el peso corporal de la especie Adelie dependiendo de las islas, ya que creemos que podria ser un factor que varie debido a distintos factores(Cambiar forma de escribir, misma linea factor y factores), como: la dificultad que tienen los pingüinos para alimentarse debido a los depredadores; la distancia entre sus colonias y el lugar en el que cazan; o por posibles variaciones físicas.
 
 ```{r, echo=FALSE}
 
@@ -185,7 +184,7 @@ par(mfrow = c(1, 1))
 
 Como podemos observar en los gráficos, los Gentoo son claramente los que tienen las aletas mas largas y los que tienen mayor masa corporal, en cambio son los que tienen la menor profundidad de pico. Por otra parte, podemos observar que las especies Adelie y Chinstrap tienen rasgos muy semejantes a excepción de la longitud de sus picos, en la cual los Adelie son los que tienen el pico mas corto en comparación con las otras dos especies.
 
-(Ahora haria un analisis diferenciando el sexo para ver si varia, pero no se si diferenciar tambien por especies, rollo ver si en los Adelie cambian su peso segun macho o hembra o si hacerlo en general para todos los pingüinos).
+(Ahora haria un analisis diferenciando el sexo para ver si varia, pero no se si diferenciar tambien por especies, rollo ver si en los Adelie cambian su peso segun macho o hembra o si hacerlo en general para todos los pingüinos)(Juanjo lo haría por especie y sexo en vez de solo sexo).
 
 (También me gustan los histogramas de freq absolutas de barras que ha hecho Angel abajo, si quereis para que no sean todo boxplot los podemos meter en algun estudio)
 
