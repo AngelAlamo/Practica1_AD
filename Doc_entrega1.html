@@ -69,6 +69,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="Doc_entrega1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="Doc_entrega1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -239,29 +241,40 @@ female   male
 </div>
 </div>
 </div>
-<p>Como podemos observar, los Adelie se encuentran en las 3 islas mientras que los Gentoo y los Chinstrap solo los podemos encontrar en una de ellas, siendo Biscoe la isla donde habita la especie Gentoo y Dream la isla donde habita la especie Chinstrap.</p>
-<p>A continuación compararemos las caracteristicas de los Adelie en las diferentes islas para ver si la zona demográfica influye en la evolución de la especie a nivel fisiológico. Empezaremos con la longitud de sus aletas.</p>
+<p>Como podemos observar, los Adelie se encuentran en las 3 islas mientras que los Gentoo y los Chinstrap solo los podemos encontrar en una de ellas, siendo Biscoe la isla donde habita la especie Gentoo y Dream la isla donde habita la especie Chinstrap. A causa de estas diferencias, no se haran análisis respecto la variable isla en particular.</p>
+<p>A continuación compararemos las caracteristicas de los Adelie en las diferentes islas para ver si la zona demográfica influye en la evolución de la especie a nivel fisiológico. Veamos primero cuántos pingüinos de la especie Adelie hay en cada isla:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   Biscoe     Dream Torgersen 
+       44        55        47 </code></pre>
+</div>
+</div>
+<p>Como podemos ver no hay gran diferencia de unidades, entonces tiene sentido ver los datos de la especie Adelie según la isla. Empezaremos con la longitud de sus aletas.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>A rasgos generales, parece que la longitud de las aletas de la especie Adelie en las islas Dream y Biscoe presentan una distribución algo diferente que en la isla Torgersen, esto podemos intuirlo por las frecuencias que se muestran en los intervalos <span class="math inline">\((177, 183]\)</span> y <span class="math inline">\((188, 194]\)</span>. Otro aspecto a señalar podría ser la dispersión respecto a la media, tenemos que en la isla Dream la longitud de la aleta se acercan más al valor esperado: 190.103mm aunque podría deberse a la muestra obtenida y no refleja correctamente a la población completa.</p>
+<p>Ahora estudiemos si hay diferencias significativas en las variables relacionadas con el pico:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Doc_entrega1_files/figure-html/variables%20pico%20por%20islas-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Podemos ver que no hay diferencias significativas en las variables relacionadas con el pico entre los pingüinos Adelie de diferentes islas.</p>
+<p>Por último, veamos si existe una variación aparentemente significativa en el peso corporal de la especie Adelie dependiendo de las islas. Esto podría ocurrir por distintos factores como: la dificultad que tienen los pingüinos para alimentarse debido a los depredadores; la distancia entre sus colonias y el lugar en el que cazan; o por posibles variaciones físicas.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comentario sobre los gráficos</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Vamos a ver si existe una variación aparentemente significativa en el peso corporal de la especie Adelie dependiendo de las islas. Esto podría ocurrir por distintos factores como: la dificultad que tienen los pingüinos para alimentarse debido a los depredadores; la distancia entre sus colonias y el lugar en el que cazan; o por posibles variaciones físicas.</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Aparentemente no parece haber diferencias significativas, asi que vamos a dejar a los Adelie para empezar a estudiar las características fisicas de diferentes especies entre ellas y entre sexos.</p>
@@ -270,7 +283,7 @@ female   male
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="480"></p>
+<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -282,7 +295,7 @@ female   male
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -293,12 +306,23 @@ female   male
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
+<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>En este gráfico podemos observar que la especie Gentoo es la que tiene la longitud de las aletas más larga y parece que los machos tienen las aletas más largas que las hembras en las tres especies. También podemos observar una similitud en esta variable entre los Adelies machos y los Chinstrap hembras. Respecto los valores en cada grupo, los únicos que muestran valores atípicos son Adelie-Female y Adelie-Male.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
 <p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>En este gráfico podemos observar que la especie Gentoo es la que tiene la longitud de las aletas más larga y que los machos también tienen las aletas más largas que las hembras en las tres especies. También podemos observar una similitud en esta variable entre los Adelies machos y los Chinstrap hembras.</p>
+<p>En este gráfico vemos claramente que la especie Adelie es la que tiene la menor longitud del pico. Podemos ver similitudes respecto a esta variable entre la especie Chinstrap y Gentoo, aunque los Chinstrap machos toman valores más compactos que los Gentoo machos. Como en el gráfico anterior, también vemos que los machos, en las tres especies, toman valores más altos que las hembras.</p>
+<p>Por otro lado, se han presentado unos valores atípicos en los grupos Adelie-Male, Chinstrap-Female, Chinstrap-Male, y Gentoo-Male. Esto podría deberse a la falta de unidades muestrales en esos grupos para estudiar con detalle esta variable, haciendo que los valores estén más dispersos y no presente una distribución clara.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -308,7 +332,7 @@ female   male
 </div>
 </div>
 </div>
-<p>En este gráfico vemos claramente que la especie Adelie es la que tiene la menor longitud del pico. Podemos ver similitudes respecto a esta variable entre la especie Chinstrap y Gentoo, aunque los Chinstrap machos toman valores más compactos que los Gentoo machos. Como en el gráfico anterior, también vemos que los machos, en las tres especies, toman valores más altos que las hembras.</p>
+<p>En este caso, es la especie Gentoo la que toma los valores más pequeños y las especies Adelie y Chinstrap las que toman valores similares, aunque hay una diferencia notable entre la profundidad mínima de la especie Adelie y la Chinstrap. Volvemos a ver también que los machos toman valores más altos en las tres especies. Por último, los grupos que presentan valores atípicos son Adelie-Female, Adelie-Male</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -318,21 +342,11 @@ female   male
 </div>
 </div>
 </div>
-<p>En este caso, es la especie Gentoo la que toma los valores más pequeños y las especies Adelie y Chinstrap las que toman valores similares, aunque hay una diferencia notable entre la profundidad mínima de la especie Adelie y la Chinstrap. Volvemos a ver también que los machos toman valores más altos en las tres especies.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Doc_entrega1_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="768"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Respecto a la masa corporal, se vuelve a dar el caso que la especie Gentoo toma los valores más altos. También vemos ciertas similituddes entre las especies Adelie y Chinstrap. Vemos otra vez que los machos toman valores más altos que las hembras en las tres especies.</p>
+<p>Respecto a la masa corporal, se vuelve a dar el caso que la especie Gentoo toma los valores más altos. También vemos ciertas similituddes entre las especies Adelie y Chinstrap. Vemos otra vez que los machos toman valores más altos que las hembras en las tres especies. En este caso, solo los grupos Chinstrap-Female y Chinstrap-Male muestran valores atípicos.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Algun hist de frecuencias absolutas?</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Hay que comentar los valores atípicos?</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Hacemos un análisis general de las 4 variables?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Hacemos un análisis general de las 4 variables?</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Estudiar por años?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 

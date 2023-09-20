@@ -152,12 +152,31 @@ par(mfrow = c(1, 1))
 
 A rasgos generales, parece que la longitud de las aletas de la especie Adelie en las islas Dream y Biscoe presentan una distribución algo diferente que en la isla Torgersen, esto podemos intuirlo por las frecuencias que se muestran en los intervalos $(177, 183]$ y $(188, 194]$. Otro aspecto a señalar podría ser la dispersión respecto a la media, tenemos que en la isla Dream la longitud de la aleta se acercan más al valor esperado: `r round(mean(vec_aletas_adelie),3)`mm aunque podría deberse a la muestra obtenida y no refleja correctamente a la población completa.
 
+Ahora estudiemos si hay diferencias significativas en las variables relacionadas con el pico:
 
-Vamos a ver si existe una variación aparentemente significativa en el peso corporal de la especie Adelie dependiendo de las islas. Esto podría ocurrir por distintos factores como: la dificultad que tienen los pingüinos para alimentarse debido a los depredadores; la distancia entre sus colonias y el lugar en el que cazan; o por posibles variaciones físicas.
+```{r variables pico por islas, fig.width=6, fig.height=9, fig.align='center', echo=FALSE}
+par(mfrow = c(2, 1))
+
+boxplot(penguins2$bill_length_mm[penguins2$species == "Adelie"] ~ penguins2$island[penguins2$species == "Adelie"], ylab = "Longitud del pico (mm)", xlab = "Isla",col ="#7EC3E5")
+
+medias = aggregate(penguins2$bill_length_mm[penguins2$species == "Adelie"] ~ penguins2$island[penguins2$species == "Adelie"], FUN = mean)
+
+points(medias, col = "red", pch = 18)
+
+boxplot(penguins2$bill_depth_mm[penguins2$species == "Adelie"] ~ penguins2$island[penguins2$species == "Adelie"], ylab = "Profundidad del pico (mm)", xlab = "Isla",col ="#7EC3E5")
+
+medias = aggregate(penguins2$bill_depth_mm[penguins2$species == "Adelie"] ~ penguins2$island[penguins2$species == "Adelie"], FUN = mean)
+
+points(medias, col = "red", pch = 18)
+```
+
+Podemos ver que no hay diferencias significativas en las variables relacionadas con el pico entre los pingüinos Adelie de diferentes islas.
+
+Por último, veamos si existe una variación aparentemente significativa en el peso corporal de la especie Adelie dependiendo de las islas. Esto podría ocurrir por distintos factores como: la dificultad que tienen los pingüinos para alimentarse debido a los depredadores; la distancia entre sus colonias y el lugar en el que cazan; o por posibles variaciones físicas.
 
 ```{r, echo=FALSE}
 
-boxplot(penguins2$body_mass_g[penguins2$species == "Adelie"] ~ penguins2$island[penguins2$species == "Adelie"], ylab = "Peso corporal", xlab = "Isla",col ="#7EC3E5")
+boxplot(penguins2$body_mass_g[penguins2$species == "Adelie"] ~ penguins2$island[penguins2$species == "Adelie"], ylab = "Peso corporal (g)", xlab = "Isla",col ="#7EC3E5")
 
 medias = aggregate(penguins2$body_mass_g[penguins2$species == "Adelie"] ~ penguins2$island[penguins2$species == "Adelie"], FUN = mean)
 
@@ -169,8 +188,8 @@ Aparentemente no parece haber diferencias significativas, asi que vamos a dejar 
 
 Analicemos los rasgos diferentes de pingüinos segun especies. Aqui tenemos las longitudes de las aletas, las longitudes y profundidades de los picos y sus masas corporales:
 
-```{r, echo=FALSE, fig.width=5, fig.height=10, fig.align='center'}
-par(mfrow = c(4, 1))
+```{r, echo=FALSE, fig.width=8, fig.height=8, fig.align='center'}
+par(mfrow = c(2, 2))
 
 boxplot(penguins2$flipper_length_mm ~ penguins2$species, ylab = "Longitud aleta", xlab = "Especies", main = "Longitud de las aletas por especies",  col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
 
@@ -179,8 +198,6 @@ boxplot(penguins2$bill_length_mm ~ penguins2$species, ylab = "Longitud pico", xl
 boxplot(penguins2$bill_depth_mm ~ penguins2$species, ylab = "Longitud pico", xlab = "Especies",main = "Profundidad del pico por especies",col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
 
 boxplot(penguins2$body_mass_g ~ penguins2$species, ylab = "Masa corporal", xlab = "Especies",main = "Masa corporal por especies",col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
-
-par(mfrow = c(1, 1))
 ```
 
 Como podemos observar en los gráficos, los Gentoo son claramente los que tienen las aletas mas largas y los que tienen mayor masa corporal, en cambio son los que tienen la menor profundidad de pico. Por otra parte, las especies Adelie y Chinstrap tienen rasgos muy semejantes a excepción de la longitud de sus picos, en la cual los Adelie parecen tener el pico mas corto en comparación con las otras dos especies.
@@ -246,6 +263,7 @@ Respecto a la masa corporal, se vuelve a dar el caso que la especie Gentoo toma 
 ```{r comentarios}
 # Algun hist de frecuencias absolutas?
 # Hacemos un análisis general de las 4 variables?
+# Estudiar por años?
 
 ```
 
