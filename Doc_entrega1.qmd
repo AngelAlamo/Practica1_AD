@@ -154,8 +154,8 @@ A rasgos generales, parece que la longitud de las aletas de la especie Adelie en
 
 Ahora estudiemos si hay diferencias significativas en las variables relacionadas con el pico:
 
-```{r variables pico por islas, fig.width=6, fig.height=9, fig.align='center', echo=FALSE}
-par(mfrow = c(2, 1))
+```{r variables pico por islas, fig.width=9, fig.height=5, fig.align='center', echo=FALSE}
+par(mfrow = c(1, 2))
 
 boxplot(penguins2$bill_length_mm[penguins2$species == "Adelie"] ~ penguins2$island[penguins2$species == "Adelie"], ylab = "Longitud del pico (mm)", xlab = "Isla",col ="#7EC3E5")
 
@@ -186,23 +186,7 @@ points(medias, col = "red", pch = 18)
 
 Aparentemente no parece haber diferencias significativas, asi que vamos a dejar a los Adelie para empezar a estudiar las características fisicas de diferentes especies entre ellas y entre sexos.
 
-Analicemos los rasgos diferentes de pingüinos segun especies. Aqui tenemos las longitudes de las aletas, las longitudes y profundidades de los picos y sus masas corporales:
-
-```{r, echo=FALSE, fig.width=8, fig.height=8, fig.align='center'}
-par(mfrow = c(2, 2))
-
-boxplot(penguins2$flipper_length_mm ~ penguins2$species, ylab = "Longitud aleta", xlab = "Especies", main = "Longitud de las aletas por especies",  col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
-
-boxplot(penguins2$bill_length_mm ~ penguins2$species, ylab = "Longitud pico", xlab = "Especies",main = "Longitud del pico por especies",col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
-
-boxplot(penguins2$bill_depth_mm ~ penguins2$species, ylab = "Longitud pico", xlab = "Especies",main = "Profundidad del pico por especies",col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
-
-boxplot(penguins2$body_mass_g ~ penguins2$species, ylab = "Masa corporal", xlab = "Especies",main = "Masa corporal por especies",col =c("#7EC3E5", "#E57E7E", "#8F7EE5"))
-```
-
-Como podemos observar en los gráficos, los Gentoo son claramente los que tienen las aletas mas largas y los que tienen mayor masa corporal, en cambio son los que tienen la menor profundidad de pico. Por otra parte, las especies Adelie y Chinstrap tienen rasgos muy semejantes a excepción de la longitud de sus picos, en la cual los Adelie parecen tener el pico mas corto en comparación con las otras dos especies.
-
-Analicemos los rasgos diferentes de pingüinos segun especies y sexo.
+Analicemos los rasgos diferentes de pingüinos según especies y sexo.
 
 Primero de todo veamos cuantos machos y hembras hay en cada especie usando diagramas circulares, donde el área de cada sector es proporcional a la frecuencia del nivel correspondiente.
 
@@ -259,30 +243,3 @@ body_mass_species_sex = split(penguins2$body_mass_g, list(penguins2$sex, penguin
 boxplot(body_mass_species_sex, names = c("A-F", "A-M", "C-F", "C-M", "G-F", "G-M"), ylab = "Masa corporal (g)", xlab = "Especies - sexo", main = "Masa corporal por especies y sexo",  col =c("#7EC3E5", "#7EC3E5", "#E57E7E", "#E57E7E", "#8F7EE5", "#8F7EE5"))
 ```
 Respecto a la masa corporal, se vuelve a dar el caso que la especie Gentoo toma los valores más altos. También vemos ciertas similituddes entre las especies Adelie y Chinstrap. Vemos otra vez que los machos toman valores más altos que las hembras en las tres especies. En este caso, solo los grupos Chinstrap-Female y Chinstrap-Male muestran valores atípicos.
-
-```{r comentarios}
-# Algun hist de frecuencias absolutas?
-# Hacemos un análisis general de las 4 variables?
-# Estudiar por años?
-
-```
-
-```{r, echo = FALSE}
-# Función para hacer el histograma de frecuencias absolutas
-hist_abs=function(x,L){
-if (sum(diff(diff(L)))==0){ 
-h=hist(x, breaks=L, right=FALSE, include.lowest=TRUE,
-    xaxt="n", col="lightgray",
-    main="Histograma de frecuencias absolutas",
-    xlab="Intervalos",ylab="Frecuencias absolutas")
-}
-  else {
- h=hist(x, breaks=L, right=FALSE, include.lowest=TRUE,
-    axes=FALSE, col="lightgray",
-    main="Histograma de frecuencias absolutas",
-    xlab="Intervalos",ylab="")
- text(h$mids, h$density/2, labels=h$counts, col="blue", cex=0.75)
-}
-axis(1, at=L)}
-
-```
